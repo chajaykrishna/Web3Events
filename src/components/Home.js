@@ -56,11 +56,13 @@ const Home = ({account, eventContract}) => {
           {items.map((item, idx) => (
             <Col key={idx} className="overflow-hidden">
               <Card>
-                <Card.Img variant="top" onClick ={()=>itemSelected(item)} src={item.image}/>
+                <Card.Img variant="top" onClick ={()=>itemSelected(item)} 
+                src={item.image}
+                style={{width: "100%", height: "20rem", objectFit: "cover"}}/>
                 <Card.Body color="secondary">
                   <Card.Title>{item.name.slice(0,20)}</Card.Title>
                   <Card.Text>
-                    {item.description.slice(0,30)}
+                    {item.description.slice(0,25)}
                   </Card.Text>
                 </Card.Body>
                 <Card.Footer>
