@@ -2,6 +2,14 @@
   text-align: center;
 }
 
+.Event {
+  text-align: left;
+}
+
+.font-bold {
+  font-weight: bold;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

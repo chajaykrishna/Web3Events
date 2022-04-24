@@ -4,9 +4,17 @@ import {Router, Route, Routes, BrowserRouter} from 'react-router-dom';
 import { Spinner, ToastContainer, Toast } from 'react-bootstrap';
 import {ethers} from "ethers";
 import Navigation from './Navigation';
-import event from './events.json';
+import PNF from './PNF';
+import Event from './Event';
+import eventSeller from './contractsData/EventSeller.json';
+import eventNFT from './contractsData/EventNFT.json';
+import eventSellerAddress from './contractsData/EventSeller-address.json';
+import eventNFTAddress from './contractsData/EventNFT-address.json';
+
+
 import Create from './Create';
 import Home from './Home';
+import MyPurchases from './MyPurchases';
 
 
 function App() {
@@ -14,6 +22,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [account, setAccount] = useState(null);
   const [eventContract, setEvnetContract] = useState(null);
+  const [eventSellerContract, setEventSellerContract] = useState(null);
   const [toast, setToast] = useState(false);
 
 
@@ -65,8 +74,10 @@ function App() {
   }
 
   const loadContracts = async (signer) =>{
-    const contract = new ethers.Contract("0x68946692447Cf545BadbE6651C1C365FdbC2fBA0", event.abi, signer);
+    const contract = new ethers.Contract(eventNFTAddress.address, eventNFT.abi, signer);
+    const sellerContract = new ethers.Contract(eventSellerAddress.address, eventSeller.abi, signer);
     setEvnetContract(contract);
+    setEventSellerContract(sellerContract);
     setLoading(false);
   }
 
@@ -93,7 +104,10 @@ function App() {
       : (
       <Routes>
       <Route path="/" element = {<Home account={account} eventContract={eventContract}/>}/>
-      <Route path="/create" element = {<Create account={account} eventContract={eventContract}/>}/>
+      <Route path="/create" element = {<Create eventContract={eventContract}/>}/>
+      <Route path="/event" element = {<Event eventContract={eventContract} eventSellerContract={eventSellerContract}/>}/>
+      <Route path="/mypurchases" element = {<MyPurchases eventContract={eventContract}/>}/>
+      <Route path = "/*" element = {<PNF/>}/>
       </Routes>
       )}
     </div>

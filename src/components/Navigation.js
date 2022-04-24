@@ -4,16 +4,17 @@ import { Link } from 'react-router-dom'
 
 const Navigation = ({web3Handler, account}) => {
   return (
-    <Navbar expand="lg" bg="secondary" variant="dark">
+    <Navbar expand="lg" bg="dark" variant="dark">
             <Container>
                 <Navbar.Brand href="#">
-                    &nbsp; EPIC NFTS
+                    &nbsp; WEB3EVENTS
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link as={Link} to="/">Home</Nav.Link>
                         <Nav.Link as={Link} to="/create">Create</Nav.Link>
+                        <Nav.Link as={Link} to="/mypurchases">MyPurchases</Nav.Link>
                     </Nav>
                     <Nav>
                         {account ? (

@@ -1,15 +1,5 @@
-# Basic Sample Hardhat Project
+check out the live version here: 
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
+Web3Events is a marketplace but for Event tickes. Organizers can create an event by specifying event name,des, total number of tickets, and price of each ticket. 
 
-Try running some of the following tasks:
-
-```shell
-npx hardhat accounts
-npx hardhat compile
-npx hardhat clean
-npx hardhat test
-npx hardhat node
-node scripts/sample-script.js
-npx hardhat help
-```
+Any one with metamask and sufficient eth in account can buy tickets for any events listed.

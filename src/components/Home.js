@@ -1,5 +1,4 @@
-import React from 'react'
-import ethers from 'ethers';
+import {ethers} from "ethers";
 import { useState, useEffect} from 'react'
 import { Button, Card,Row, Col,Spinner } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
@@ -13,34 +12,30 @@ const Home = ({account, eventContract}) => {
   const navigate= useNavigate();
 
   const itemSelected = (item) =>{
-    // navigate("/item/itemId", {state: {item_data:item}});
+     navigate("/event", {state: {item_data:item}});
   }
 //  function on call will load all listed nfts
   const loadEvents = async() => {
     const items_ = await eventContract.getEvents();
-    console.log(items_)
     const items = await Promise.all(items_.map(async (i)=>{
-      const uri = i;
-      const meta = await axios.get(uri);
-      // let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
+      const meta = await axios.get(i.uri);
+      let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
+      // let ticketsAvailable = parseInt(ethers.utils.formatUnits(i.ticketsAvailable.toString()));  returns error data
+      let ticketsAvailable = i.ticketsAvailable.toNumber();
       let item = {
-          // price: price,
+          id: i.id,
           name: meta.data.name,
           description: meta.data.description,
-          image: meta.data.image
+          image: meta.data.image,
+          price: price,
+          ticketsAvailable: ticketsAvailable,
+          organizer: i.organizer
       }
       return item;
     }))
     setItems(items);
     setLoading(false);
   }
-
-  const buyItem = async(item)=> {
-    // console.log(ethers.utils.parseEther(item.price))
-    // await (await marketplace.buyMarketItem(item.itemId, {value: ethers.utils.parseEther(item.price)})).wait();
-    // loadMarketItems();
-
-  } 
 
   useEffect(()=>{
     loadEvents();
@@ -63,15 +58,15 @@ const Home = ({account, eventContract}) => {
               <Card>
                 <Card.Img variant="top" onClick ={()=>itemSelected(item)} src={item.image}/>
                 <Card.Body color="secondary">
-                  <Card.Title>{item.name}</Card.Title>
+                  <Card.Title>{item.name.slice(0,20)}</Card.Title>
                   <Card.Text>
-                    {item.description}
+                    {item.description.slice(0,30)}
                   </Card.Text>
                 </Card.Body>
                 <Card.Footer>
                   <div className='d-grid'>
-                    <Button onClick={() => buyItem(item)} variant="primary" size="lg">
-                      Buy for {(item.price)} ETH
+                    <Button onClick={() => itemSelected(item)} variant="primary" size="lg">
+                      Buy Ticket
                     </Button>
                   </div>
                 </Card.Footer>
