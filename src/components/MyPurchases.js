@@ -65,7 +65,7 @@ const MyPurchases = ({eventContract}) => {
                </Card.Body>
                <Card.Footer>
                  <div className='d-grid'>
-                     <b>Ticket Available</b>
+                     <b>Ticket Purchased</b>
                  </div>
                </Card.Footer>
              </Card>
